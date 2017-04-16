@@ -111,17 +111,19 @@ void BOOKS:: update_book(void)
 
         file.open("BOOK.dat", fstream::in);
         file1.open("tmp.dat",ios::out|ios::binary);
-        cout << "Enter ID of Book to be Updated : ";
+        		
+	cout << "Enter ID of Book to be Updated : ";
         cin >> b_id;
-        cout << "Enter available books count : ";
-        cin >> avail1;
-        cout << "Enter no of copies : ";
-        cin >> copies1;
 
         while(file.read((char *) this, sizeof(BOOKS))){
                 if (book_code == b_id)
 		{
                         flag = 0;
+       			cout << "Enter available books count : ";
+        		cin >> avail1;
+        		cout << "Enter no of copies : ";
+        		cin >> copies1;
+
 			copies = copies1;
 			avail = avail1;
                         file1.write((char *) this, sizeof(BOOKS));
@@ -150,20 +152,22 @@ void BOOKS:: update_book_name(void)
 
         file.open("BOOK.dat", fstream::in);
         file1.open("tmp.dat",ios::out|ios::binary);
-        cout << "Enter ID of Book to be Updated : ";
-        cin >> b_id;
-        cout << "Enter name of the book : ";
-        cin >> b_name;
-        cout << "Enter name of the author : ";
-        cin >> a_name;
-        cout << "Enter name of the publication : ";
-        cin >> pub;
+	
+	cout << "Enter ID of Book to be Updated : ";
+       	cin >> b_id;
 
         while(file.read((char *) this, sizeof(BOOKS))){
                 if (book_code == b_id)
                 {
                         flag = 0;
-                        strcpy(book_name, b_name);
+        		cout << "Enter name of the book : ";
+        		cin >> b_name;
+        		cout << "Enter name of the author : ";
+        		cin >> a_name;
+        		cout << "Enter name of the publication : ";
+        		cin >> pub;
+                        
+			strcpy(book_name, b_name);
                         strcpy(author_name, a_name);
                         strcpy(publication, pub);
                         file1.write((char *) this, sizeof(BOOKS));
