@@ -12,7 +12,7 @@ using namespace std;
 class BOOKS
 {
 	private:
-		int book_code, copies, avail;
+		int book_code = 0, copies, avail, flag = 1;
 		float price;
 		char  book_name[100], author_name[100], publication[100];
 	
@@ -26,8 +26,8 @@ class BOOKS
 	public:
 		
 		void delete_book(void);
-		void update_book(int, int, int);
-		void update_book(int, char[], char[], char[]);
+		void update_book(void);
+		void update_book_name(void);
 		void add_book(char[], char[], char[], int, float, int);
 		void list();
 		
@@ -52,8 +52,10 @@ void BOOKS::add_book( char *book_name1, char *author_name1, char *publication1, 
 	//file.open("BOOK.txt", std::fstream::in | std::fstream::out | std::fstream::app | ios::binary);
 	
 	file.open("BOOK.dat", fstream::in);
-	if (file.fail())
-		book_code = 0;
+	//if (file.fail())
+	//file.read((char *) this, sizeof(BOOKS));
+	//if (book_code == -1)
+	//	book_code = 0;
 	file.seekg(-sizeof(BOOKS),std::ios_base::end);
 	file.read((char *) this, sizeof(BOOKS));
 	file.close();
@@ -73,6 +75,116 @@ void BOOKS::add_book( char *book_name1, char *author_name1, char *publication1, 
 
 }
 
+void BOOKS:: delete_book(void)
+{
+	int b_id;
+        fstream file, file1;
+
+        file.open("BOOK.dat", fstream::in);
+        file1.open("tmp.dat",ios::out|ios::binary);
+	cout << "Enter ID of Book to be Deleted : ";
+	cin >> b_id;
+
+        while(file.read((char *) this, sizeof(BOOKS))){
+		if (book_code == b_id)
+			flag = 0;
+		else  
+		{
+        		file1.write((char *) this, sizeof(BOOKS));
+			flag = 1;
+		}
+	}
+        file.close();
+        file1.close();
+
+	if (flag != 0)
+		cout << " ****** Record Not Found ******\n";
+	remove("BOOK.dat");
+	rename("tmp.dat", "BOOK.dat");
+
+}
+
+void BOOKS:: update_book(void)
+{
+        int b_id, avail1, copies1;
+        fstream file, file1;
+
+        file.open("BOOK.dat", fstream::in);
+        file1.open("tmp.dat",ios::out|ios::binary);
+        cout << "Enter ID of Book to be Updated : ";
+        cin >> b_id;
+        cout << "Enter available books count : ";
+        cin >> avail1;
+        cout << "Enter no of copies : ";
+        cin >> copies1;
+
+        while(file.read((char *) this, sizeof(BOOKS))){
+                if (book_code == b_id)
+		{
+                        flag = 0;
+			copies = copies1;
+			avail = avail1;
+                        file1.write((char *) this, sizeof(BOOKS));
+		}
+                else
+                {
+                        file1.write((char *) this, sizeof(BOOKS));
+                        flag = 1;
+                }
+        }
+        file.close();
+        file1.close();
+
+        if (flag != 0)
+                cout << " ****** Record Not Found ******\n";
+        remove("BOOK.dat");
+        rename("tmp.dat", "BOOK.dat");
+
+}
+
+void BOOKS:: update_book_name(void)
+{
+        int b_id;
+	char b_name[32], a_name[32], pub[32];
+        fstream file, file1;
+
+        file.open("BOOK.dat", fstream::in);
+        file1.open("tmp.dat",ios::out|ios::binary);
+        cout << "Enter ID of Book to be Updated : ";
+        cin >> b_id;
+        cout << "Enter name of the book : ";
+        cin >> b_name;
+        cout << "Enter name of the author : ";
+        cin >> a_name;
+        cout << "Enter name of the publication : ";
+        cin >> pub;
+
+        while(file.read((char *) this, sizeof(BOOKS))){
+                if (book_code == b_id)
+                {
+                        flag = 0;
+                        strcpy(book_name, b_name);
+                        strcpy(author_name, a_name);
+                        strcpy(publication, pub);
+                        file1.write((char *) this, sizeof(BOOKS));
+                }
+                else
+                {
+                        file1.write((char *) this, sizeof(BOOKS));
+                        flag = 1;
+                }
+        }
+        file.close();
+        file1.close();
+
+        if (flag != 0)
+                cout << " ****** Record Not Found ******\n";
+        remove("BOOK.dat");
+        rename("tmp.dat", "BOOK.dat");
+
+}
+
+
 void BOOKS:: list() {
 	fstream file;
         file.open("BOOK.dat",ios::in|ios::binary);
@@ -88,12 +200,20 @@ void BOOKS:: list() {
 
 int main() {
 
-BOOKS bookObj;
+	BOOKS bookObj;
 
-bookObj.add_book( "Unix", "Steve", "PBS", 10, 100.24, 10);
-bookObj.list();
+	bookObj.add_book( "Unix", "Steve", "PBS", 10, 100.24, 10);
+	bookObj.add_book( "Unix", "Steve", "PBS", 10, 100.24, 10);
+	bookObj.add_book( "Unix", "Steve", "PBS", 10, 100.24, 10);
+	bookObj.list();
+	//bookObj.delete_book();
+	//bookObj.update_book();
+	bookObj.update_book_name();
+	bookObj.list();
 
-return 0;
+	bookObj.add_book( "Unix", "Steve", "PBS", 10, 100.24, 10);
+	bookObj.list();
+	return 0;
 }
 
 
