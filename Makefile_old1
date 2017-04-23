@@ -1,0 +1,22 @@
+ # the compiler to use.
+CC=g++
+ # Hey!, I am comment number 2. I want to say that CFLAGS will be the
+ # options I'll pass to the compiler.
+CFLAGS=-c -Wall
+
+all: lms
+
+lms: member.o books.o
+	$(CC) books.o member.o -o lms
+
+member.o: member.cpp
+	$(CC) $(CFLAGS) member.cpp
+
+books.o: books.cpp
+	$(CC) $(CFLAGS) books.cpp
+
+test_member.o: test_member.cpp
+	$(CC) $(CFLAGS) test_member.cpp
+
+clean:
+	rm *.o lms

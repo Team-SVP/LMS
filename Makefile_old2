@@ -1,0 +1,68 @@
+#Output Path
+
+BIN = ./bin
+SRC = ./include
+
+#AR = ar -cqs
+#AR = ar rvs
+#ifeq ($(CFLAG), DEBUG)
+#	CFLAGS += -g
+#endif
+
+#intermediate objects
+#OBJ = $(addprefix $(BIN)/, \
+	member.o\
+	book.o\
+	)
+#SAMPLE_OBJS = $(addprefix $(BIN)/, \
+		sample.o\
+		)
+
+
+#include file path
+INC = -I$(SRC)
+
+#TARGETS = $(BIN)/libmember.a $(BIN)/sample
+
+#all: clean prepare $(TARGETS)
+
+#Build lib as a static 
+#$(BIN)/libLMS.a: $(OBJ)
+#	$(AR) $@ $(OBJ)
+
+#Build sample
+#$(BIN)/sample: $(SAMPLE_OBJ)
+#	g++ -o $(INC) 	
+
+
+
+
+ # the compiler to use.
+CC=g++
+ # Hey!, I am comment number 2. I want to say that CFLAGS will be the
+ # options I'll pass to the compiler.
+CFLAGS=-c -Wall
+
+all:lms 
+
+#$(BIN):%.o: $(SRC)/%.cpp
+#	$(CC) $(INC) -c $< -o $@
+
+
+lms: member.o 
+	$(CC) -shared -fPIC -o ./lib/libLMS.so $(INC) $(BIN)/member.o $(BIN)/books.o
+
+$(BIN)/member.o: member.cpp
+	$(CC) $(INC) $(CFLAGS) member.cpp 
+
+#$(BIN)/books.o: books.cpp
+#	$(CC) $(INC) $(CFLAGS) books.cpp 
+
+$(BIN)/test_member.o: test_member.cpp
+	$(CC) $(CFLAGS) test_member.cpp -Llib -lLMS
+
+test_book.o: test_book.cpp
+	$(CC) $(CFLAGS) test_book.cpp -Llib -lLMS
+
+clean:
+	rm -rf $(BIN)/*.o 
