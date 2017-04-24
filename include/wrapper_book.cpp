@@ -50,7 +50,7 @@ void wrapper_update_book(BOOKS bObj) {
 
 }
 
-void wrapper_book_name(BOOKS bObj) {
+void wrapper_update_book_name(BOOKS bObj) {
 	int b_id;
 	char b_name[100], b_author[100], b_pub[100];
 	
