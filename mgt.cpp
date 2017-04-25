@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <iostream>
 #include <stdlib.h>
-#include "books.h"
+#include "wrapper_book.h"
 using namespace std;
 
 int main() {
 
-	/*
+	
 
         BOOKS bookObj;
-
+	/*
         bookObj.add_book( "Unix", "Steve", "PBS", 10, 100.24, 10);
         bookObj.add_book( "Unix", "Steve", "PBS", 10, 100.24, 10);
         bookObj.add_book( "Unix", "Steve", "PBS", 10, 100.24, 10);
@@ -48,6 +48,9 @@ int main() {
 			cout << "Your in switch 1";
 			break;
 		case 2: cout << "Your in switch 2";
+			break;
+		case 9: cout << "Show the book details";
+			wrapper_list_book(bookObj);
 			break;
 
 		case 14:
