@@ -2,12 +2,12 @@
 #include <iostream>
 #include <stdlib.h>
 #include "wrapper_book.h"
+#include "wrapper_member.h"
 using namespace std;
 
 int main() {
 
-	
-
+	MEMBERS memberObj;
         BOOKS bookObj;
 	/*
         bookObj.add_book( "Unix", "Steve", "PBS", 10, 100.24, 10);
@@ -24,41 +24,51 @@ int main() {
         bookObj.add_book( "Unix", "Steve", "PBS", 10, 100.24, 10);
         bookObj.list(); */
 	int choice;
-	cout << "1: Add Member \n";
-	cout << "2: Update Member \n";
-	cout << "3: Delete Member \n";
-	cout << "4: Display Member \n";
+	while(1)
+	{
+		cout << "1: Add Member \n";
+		cout << "2: Update Member \n";
+		cout << "3: Delete Member \n";
+		cout << "4: Display Member \n";
 	
-	cout << "5: Add Book\n";
-	cout << "6: Update Book\n";
-	cout << "7: Update Book Name\n";
-	cout << "8: Delete Book\n";
-	cout << "9: Display Book\n";
-	cout << "10: Issue Book\n";
-	cout << "11: Return Book\n";
-	cout << "12: Search Book\n";
-	cout << "13: Search Member\n";
-	cout << "14: Exit\n";
+		cout << "5: Add Book\n";
+		cout << "6: Update Book\n";
+		cout << "7: Update Book Name\n";
+		cout << "8: Delete Book\n";
+		cout << "9: Display Book\n";
+		cout << "10: Issue Book\n";
+		cout << "11: Return Book\n";
+		cout << "12: Search Book\n";
+		cout << "13: Search Member\n";
+		cout << "14: Exit\n";
 	
-	cout << "Enter Your Choice : ";
-	cin >> choice; 
+		cout << "Enter Your Choice : ";
+		cin >> choice; 
 	
 	switch(choice) {
+	
 		case 1:
-			cout << "Your in switch 1";
+			wrapper_add_member(memberObj);
 			break;
-		case 2: cout << "Your in switch 2";
+		case 2:
+			wrapper_update_member(memberObj); 
+			break;
+		case 3:
+			wrapper_delete_member(memberObj);
+			break;
+		case 4:
+			wrapper_list_members(memberObj);
 			break;
 		case 9: cout << "Show the book details";
 			wrapper_list_book(bookObj);
 			break;
-
 		case 14:
 			exit(0);
 		default:
 			cout << "in default case";
 	
-	}	
+		}	
+	}
 
         return 0;
 }
