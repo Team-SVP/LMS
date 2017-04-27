@@ -24,7 +24,11 @@ void wrapper_add_book(BOOKS bObj) {
 	bObj.add_book( b_name, b_author, b_pub, total_copies, b_price, copies_avail);
 }
 
-void wrapper_delete_book(BOOKS bObj, int b_id) {
+void wrapper_delete_book(BOOKS bObj) {
+	int b_id;
+	bObj.list();
+	cout << "Enter Book Id";
+	cin >> b_id;
 	bObj.delete_book(b_id);
 }
 

@@ -59,7 +59,19 @@ int main() {
 		case 4:
 			wrapper_list_members(memberObj);
 			break;
-		case 9: cout << "Show the book details";
+		case 5:
+			wrapper_add_book(bookObj);
+			break;
+		case 6:
+			wrapper_update_book(bookObj);
+			break;
+		case 7:
+			wrapper_update_book_name(bookObj);
+			break;
+		case 8:
+			wrapper_delete_book(bookObj);
+			break;
+		case 9: 
 			wrapper_list_book(bookObj);
 			break;
 		case 14:
