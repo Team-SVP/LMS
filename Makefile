@@ -3,22 +3,25 @@ CC=g++
  #  # options I'll pass to the compiler.
 CFLAGS=-c -Wall
 
-all: hello
+all: clean shared lms
 
-hello: member.o books.o test_member.o 
-	$(CC) bin/member.o ./bin/books.o ./bin/test_member.o -o ./bin/hello
+#lms: member.o books.o test_member.o 
+#	$(CC) bin/member.o ./bin/books.o ./bin/test_member.o -o ./bin/hello
 	
-member.o: ./include/member.cpp
-	$(CC) -I./include $(CFLAGS) ./include/member.cpp -o ./bin/member.o
+#member.o: ./include/member.cpp
+#	$(CC) -I./include $(CFLAGS) ./include/member.cpp -o ./bin/member.o
 	
-books.o: ./include/books.cpp
-	$(CC) -I./include $(CFLAGS) ./include/books.cpp -o ./bin/books.o
+#books.o: ./include/books.cpp
+#	$(CC) -I./include $(CFLAGS) ./include/books.cpp -o ./bin/books.o
 
-test_member.o: test_member.cpp
-	$(CC) -I./include $(CFLAGS) test_member.cpp -o ./bin/test_member.o
+#test_member.o: test_member.cpp
+#	$(CC) -I./include $(CFLAGS) test_member.cpp -o ./bin/test_member.o
 
-lms.o: wrapper_member.cpp mgt.cpp
-	g++ -I./include -L/root/projects/LMS/lib -lmember mgt.cpp wrapper_member.cpp 
+shared : ./include/books.cpp ./include/member.cpp
+	g++ -shared -fPIC -I./include ./include/books.cpp ./include/member.cpp -o ./lib/liblms.so
+
+lms: ./include/wrapper_member.cpp mgt.cpp ./include/wrapper_book.cpp
+	g++ -I./include -L./lib -llms mgt.cpp ./include/wrapper_member.cpp ./include/wrapper_book.cpp -o ./bin/lms
 
 clean:
-	rm *.o hello
+	rm -rf ./bin/lms ./lib/liblms.so
