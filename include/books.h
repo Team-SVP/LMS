@@ -1,3 +1,6 @@
+#ifndef __BOOKS_H
+#define __BOOKS_H
+
 class BOOKS
 {
 	 private:
@@ -13,7 +16,8 @@ class BOOKS
                 void update_book_name(int , char *, char *, char *);
                 void add_book(char *, char *, char *, int, float, int);
                 void list();
+		int update_avail(int);
 
 
 };
-
+#endif

@@ -17,11 +17,11 @@ all: clean shared lms
 #test_member.o: test_member.cpp
 #	$(CC) -I./include $(CFLAGS) test_member.cpp -o ./bin/test_member.o
 
-shared : ./include/books.cpp ./include/member.cpp
-	g++ -shared -fPIC -I./include ./include/books.cpp ./include/member.cpp -o ./lib/liblms.so
+shared : ./include/books.cpp ./include/member.cpp ./include/transaction.cpp
+	g++ -shared -fPIC -I./include ./include/books.cpp ./include/member.cpp ./include/transaction.cpp -o ./lib/liblms.so
 
-lms: ./include/wrapper_member.cpp mgt.cpp ./include/wrapper_book.cpp
-	g++ -I./include -L./lib -llms mgt.cpp ./include/wrapper_member.cpp ./include/wrapper_book.cpp -o ./bin/lms
+lms: ./include/wrapper_member.cpp mgt.cpp ./include/wrapper_book.cpp ./include/wrapper_transaction.cpp
+	g++ -I./include -L./lib -llms mgt.cpp ./include/wrapper_member.cpp ./include/wrapper_book.cpp ./include/wrapper_transaction.cpp -o ./bin/lms
 
 clean:
 	rm -rf ./bin/lms ./lib/liblms.so

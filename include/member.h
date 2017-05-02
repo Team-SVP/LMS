@@ -1,3 +1,5 @@
+#ifndef __MEMBER_H
+#define  __MEMBER_H
 class MEMBERS
 {
 	private:
@@ -13,4 +15,4 @@ class MEMBERS
                 void list_members();
 
 };
-
+#endif

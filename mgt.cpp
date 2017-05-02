@@ -3,12 +3,14 @@
 #include <stdlib.h>
 #include "wrapper_book.h"
 #include "wrapper_member.h"
+#include "wrapper_transaction.h"
 using namespace std;
 
 int main() {
 
 	MEMBERS memberObj;
         BOOKS bookObj;
+	TRANSACTION trObj;
 	/*
         bookObj.add_book( "Unix", "Steve", "PBS", 10, 100.24, 10);
         bookObj.add_book( "Unix", "Steve", "PBS", 10, 100.24, 10);
@@ -73,6 +75,9 @@ int main() {
 			break;
 		case 9: 
 			wrapper_list_book(bookObj);
+			break;
+		case 10:
+			wrapper_issue_book(trObj, bookObj,memberObj);
 			break;
 		case 14:
 			exit(0);

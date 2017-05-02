@@ -26,6 +26,7 @@ class BOOKS
 		void update_book_name(int , char *, char *, char *);
 		void add_book(char *, char *, char *, int, float, int);
 		void list();
+		int update_avail(int);
 		
 
 };
@@ -48,8 +49,6 @@ void BOOKS::add_book( char *book_name1, char *author_name1, char *publication1, 
 	avail = avail1;
 	file.open("BOOK.dat",ios::out|ios::binary | ios::app);
 	
-	book_code = book_code;
-	copies = copies;
 	file.write((char *) this, sizeof(BOOKS));
 	file.close();	
 
@@ -82,6 +81,48 @@ void BOOKS:: delete_book(int b_id)
 	rename("tmp.dat", "BOOK.dat");
 
 }
+
+
+int BOOKS:: update_avail(int b_id)
+{
+        int flag_u1 = 0;
+        fstream file, file1;
+
+        file.open("BOOK.dat", fstream::in);
+        file1.open("tmp.dat",ios::out|ios::binary);
+
+
+        while(file.read((char *) this, sizeof(BOOKS))){
+                if (book_code == b_id)
+                {
+                        flag_u1 = 1;
+			if (avail != 0) 
+                        	avail = avail - 1;
+			else{
+				remove("tmp.data");
+				return -1;
+			}
+                        file1.write((char *) this, sizeof(BOOKS));
+                }
+                else
+                {
+                        file1.write((char *) this, sizeof(BOOKS));
+                }
+        }
+        file.close();
+        file1.close();
+
+        if (flag_u1 == 0)
+                cout << " ****** Record Not Found ******\n";
+        else
+                flag_u1 = 0;
+
+        remove("BOOK.dat");
+        rename("tmp.dat", "BOOK.dat");
+	return 0;
+
+}
+
 
 void BOOKS:: update_book(int b_id, int avail1, int copies1)
 {
