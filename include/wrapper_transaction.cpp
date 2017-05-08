@@ -36,11 +36,32 @@ int wrapper_issue_book(TRANSACTION obj_tr, BOOKS obj_b, MEMBERS obj_mem) {
 	return 0;
 }
 
-void wrapper_return_book() {
+void wrapper_return_book(TRANSACTION obj_tr) {
+	int tr_id1;
+
+        obj_tr.list_transaction();
+        cout << "Enter Transaction Id: ";
+        cin >> tr_id1;
+
+        obj_tr.return_book(tr_id1);
+
+
 
 }
 
 void wrapper_search_book() {
+
+}
+
+void wrapper_list_transaction(TRANSACTION obj_tr) {
+
+        obj_tr.list_transaction();
+
+}
+
+void wrapper_list_history(TRANSACTION obj_tr) {
+
+        obj_tr.list_history();
 
 }
 

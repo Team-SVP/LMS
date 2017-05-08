@@ -16,7 +16,7 @@ class BOOKS
                 void update_book_name(int , char *, char *, char *);
                 void add_book(char *, char *, char *, int, float, int);
                 void list();
-		int update_avail(int);
+		int update_avail(int, int);
 
 
 };

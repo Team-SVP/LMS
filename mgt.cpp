@@ -42,7 +42,9 @@ int main() {
 		cout << "11: Return Book\n";
 		cout << "12: Search Book\n";
 		cout << "13: Search Member\n";
-		cout << "14: Exit\n";
+		cout << "14: Display Transaction\n";
+		cout << "15: Display History\n";
+		cout << "16: Exit\n";
 	
 		cout << "Enter Your Choice : ";
 		cin >> choice; 
@@ -79,7 +81,16 @@ int main() {
 		case 10:
 			wrapper_issue_book(trObj, bookObj,memberObj);
 			break;
+		case 11:
+			wrapper_return_book(trObj);
+			break;
 		case 14:
+                        wrapper_list_transaction(trObj);
+                        break;
+		case 15:
+                        wrapper_list_history(trObj);
+                        break;
+		case 16:
 			exit(0);
 		default:
 			cout << "in default case";

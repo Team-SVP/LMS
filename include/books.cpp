@@ -26,7 +26,7 @@ class BOOKS
 		void update_book_name(int , char *, char *, char *);
 		void add_book(char *, char *, char *, int, float, int);
 		void list();
-		int update_avail(int);
+		int update_avail(int, int);
 		
 
 };
@@ -83,7 +83,7 @@ void BOOKS:: delete_book(int b_id)
 }
 
 
-int BOOKS:: update_avail(int b_id)
+int BOOKS:: update_avail(int b_id, int count)
 {
         int flag_u1 = 0;
         fstream file, file1;
@@ -97,7 +97,7 @@ int BOOKS:: update_avail(int b_id)
                 {
                         flag_u1 = 1;
 			if (avail != 0) 
-                        	avail = avail - 1;
+                        	avail = avail + count;
 			else{
 				remove("tmp.data");
 				return -1;
