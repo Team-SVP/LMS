@@ -3,7 +3,7 @@ CC=g++
  #  # options I'll pass to the compiler.
 CFLAGS=-c -Wall
 
-all: clean shared lms
+all: clean prepare shared lms install
 
 #lms: member.o books.o test_member.o 
 #	$(CC) bin/member.o ./bin/books.o ./bin/test_member.o -o ./bin/hello
@@ -18,10 +18,16 @@ all: clean shared lms
 #	$(CC) -I./include $(CFLAGS) test_member.cpp -o ./bin/test_member.o
 
 shared : ./include/books.cpp ./include/member.cpp ./include/transaction.cpp
-	g++ -shared -fPIC -I./include ./include/books.cpp ./include/member.cpp ./include/transaction.cpp -o ./lib/liblms.so
+	g++ -shared -fPIC -I./include ./include/books.cpp ./include/member.cpp ./include/transaction.cpp -o ./lib/liblms.so -Wl,-rpath=/usr/lib/svp
 
 lms: ./include/wrapper_member.cpp mgt.cpp ./include/wrapper_book.cpp ./include/wrapper_transaction.cpp
-	g++ -I./include -L./lib -llms mgt.cpp ./include/wrapper_member.cpp ./include/wrapper_book.cpp ./include/wrapper_transaction.cpp -o ./bin/lms
+	g++ -I./include -L./lib -llms mgt.cpp ./include/wrapper_member.cpp ./include/wrapper_book.cpp ./include/wrapper_transaction.cpp -o ./bin/lms -Wl,-rpath=/usr/lib/svp
+
+prepare:
+	mkdir bin lib /usr/lib/svp
 
 clean:
-	rm -rf ./bin/lms ./lib/liblms.so
+	rm -rf ./bin/lms ./lib/liblms.so ./bin ./lib /usr/lib/svp
+
+install:
+	cp -f ./lib/* /usr/lib/svp
